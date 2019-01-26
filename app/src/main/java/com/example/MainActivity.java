@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.app.PendingIntent;
+import android.content.Intent;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,10 +52,12 @@ public class MainActivity extends AppCompatActivity {
 
                 try{
                     SmsManager smsManager = SmsManager.getDefault();
-                    smsManager.sendTextMessage(number, null, sms, null);
+                    PendingIntent sentPI;
+                    sentPI = PendingIntent.getBroadcast(getApplicationContext(), 0, new Intent("Sent"), 0);
+                    smsManager.sendTextMessage(number, null, "Hello, world!", sentPI, null);
                     Toast.makeText(MainActivity.this, "Sent!", Toast.LENGTH_SHORT).show();
                 }catch (Exception e) {
-                    Toast.makeText(MainActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
             }
