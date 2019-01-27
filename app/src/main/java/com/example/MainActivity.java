@@ -17,9 +17,9 @@ import android.content.Intent;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button button;
+    Button button,button2;
 
-    EditText editText, editText2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,20 +41,40 @@ public class MainActivity extends AppCompatActivity {
             //do nothing
         }
         button = (Button) findViewById(R.id.button);
-        editText = (EditText) findViewById(R.id.editText);
-        editText2 = (EditText) findViewById(R.id.editText2);
+        button2 = (Button) findViewById(R.id.button2);
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String number = editText.getText().toString();
-                String sms = editText2.getText().toString();
+
+                String messageToSend = "Start";
+                String number = "28102929";
+
 
                 try{
-                    SmsManager smsManager = SmsManager.getDefault();
-                    PendingIntent sentPI;
-                    sentPI = PendingIntent.getBroadcast(getApplicationContext(), 0, new Intent("Sent"), 0);
-                    smsManager.sendTextMessage(number, null, "Hello, world!", sentPI, null);
+
+
+                    SmsManager.getDefault().sendTextMessage(number, null, messageToSend, null,null);
+                    Toast.makeText(MainActivity.this, "Sent!", Toast.LENGTH_SHORT).show();
+                }catch (Exception e) {
+                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String messageToSend = "Stop";
+                String number = "28102929";
+
+
+                try{
+
+
+                    SmsManager.getDefault().sendTextMessage(number, null, messageToSend, null,null);
                     Toast.makeText(MainActivity.this, "Sent!", Toast.LENGTH_SHORT).show();
                 }catch (Exception e) {
                     Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
